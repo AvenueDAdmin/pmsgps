@@ -4,10 +4,7 @@ on:
   schedule:
     # Runs at 12:00 UTC every 2 days
     - cron: '0 12 */2 * *'
-  # Also run on push to master (optional)
-  push:
-    branches: [ master ]
-  # Allow manual trigger
+  # Manual trigger
   workflow_dispatch:
 
 jobs:
@@ -16,10 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages # The branch the action should deploy to
-          folder: . # The folder the action should deploy
-          clean: true # Automatically remove deleted files 
+      # This step refreshes GitHub Pages by making a harmless change
+      - name: Refresh GitHub Pages
+        run: |
+          # Create empty commit to trigger a rebuild
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit --allow-empty -m "Scheduled rebuild of GitHub Pages"
+          git push
