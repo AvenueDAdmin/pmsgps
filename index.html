@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#e9556d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="PMS GPS - Track menstrual cycles and get personalized recommendations for different relationship types">
+    <title>PMS GPS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB1UlEQVR42u3XP0hVURzA8e+5XpQiCoJoaKihIZqCphZxaVNcGiIIGgKHEByCwhqioSVaXBwcGlpcRJCGICIaIoKgoSEiqKEhaHiDQN/C90MP37vvvnvV1w86cDj3nHvu+d3f75x7rvzrJRGnVNlOJ51c4ALHOEqKQ2ywzhpLLPCeGdaI/qoAXXTzgCec4UBZ38dsMMU4D5klLF4Aqe2E0cQj+jnFvhK2PnrppZv7jDMSh1GUQIpBnnKRPUUY+S0Nx3nNEPVFC9TwnAGSJbJPc4MWmmimnQtcKvldkjQP6S1GoJZR2mLYp/lACHvs0E43zcSZP5OMMrA7wSmecTKGvZ9xtvLa3jPA2ZgxBxmmfneBI4zGsI8xTlSmvcsQdTFiVvOQE5UCnGMghn2CZ0Rl2oPcLitQ+XsRrpYDaGawTPad7NN/wQdmy7y/wXUaquFxGftXlmOc6Lf8YquM/TIdlQJ08jWGfYqVPe53WS9jX6GvUoAkb2IGmYvos8zl3N2If2BEAlAyXSlrfCrCPJan3xrLRFULUPr9/vNRcovXOfot8rFqO2EUMccsHazm6R9ELPGLrVKA0q+LuLm9AOHWJ5goTq7af0Kl7NHWSZLxskcJJYnYVnZiESX5C34TS36rzsoQAAAAAElFTkSuQmCC">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="auth-screen" class="auth-screen" style="display:none;">
+        <div class="auth-container">
+            <div class="logo">
+                <i class="fas fa-location-arrow"></i>
+                <h1>PMS GPS</h1>
+            </div>
+            <h2>Enter Your PIN</h2>
+            
+            <div class="pin-input-container">
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*" autofocus>
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+            </div>
+            
+            <p id="auth-error-message" class="auth-error-message">Incorrect PIN. Please try again.</p>
+            
+            <button id="auth-submit-btn" class="auth-submit-btn">Login</button>
+            
+            <p class="auth-reset">
+                <a href="#" id="reset-pin-link">Forgot PIN?</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Pin Setup Modal -->
+    <div id="setup-pin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Setup PIN</h2>
+            <form id="setup-pin-form">
+                <div class="form-group">
+                    <label for="new-pin">Create a 4-digit PIN</label>
+                    <input type="password" id="new-pin" maxlength="4" inputmode="numeric" pattern="[0-9]*" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-pin">Confirm PIN</label>
+                    <input type="password" id="confirm-pin" maxlength="4" inputmode="numeric" pattern="[0-9]*" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">Save PIN</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App (existing code) -->
+    <div class="app-container" id="app-container" style="display: none;">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-location-arrow"></i>
+                <h1>PMS GPS</h1>
+            </div>
+            <nav>
+                <button id="add-partner-btn"><i class="fas fa-plus"></i> Add Partner</button>
+                <button id="settings-btn"><i class="fas fa-cog"></i></button>
+                <div id="theme-toggle" class="theme-toggle" title="Toggle dark mode"></div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="partners-container">
+                <h2>Your Partners</h2>
+                <div id="partners-list" class="partners-list">
+                    <!-- Partner cards will be added here dynamically -->
+                    <div class="empty-state">
+                        <p>No partners added yet</p>
+                        <button id="add-first-partner-btn">Add Your First Partner</button>
+                    </div>
+                </div>
+            </section>
+
+            <div id="add-partner-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Add a Partner</h2>
+                    <form id="add-partner-form">
+                        <div class="form-group">
+                            <label for="partner-name">Name</label>
+                            <input type="text" id="partner-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="relationship-type">Relationship Type</label>
+                            <select id="relationship-type" required>
+                                <option value="partner">Partner (Serious)</option>
+                                <option value="lover">F*ckBuddy/Lover</option>
+                                <option value="coworker">Co-Worker</option>
+                                <option value="friend">Friend</option>
+                                <option value="family">Family Member</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last-period">Last Period Start Date</label>
+                            <input type="date" id="last-period" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cycle-length">Average Cycle Length (days)</label>
+                            <input type="number" id="cycle-length" value="28" min="21" max="40">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="period-length">Average Period Length (days)</label>
+                            <input type="number" id="period-length" value="5" min="2" max="10">
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Add Partner</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="partner-detail-modal" class="modal">
+                <div class="modal-content partner-detail">
+                    <!-- Partner details will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Onboarding Wizard -->
+            <div id="onboarding-wizard" class="modal">
+                <div class="modal-content wizard-content">
+                    <div class="wizard-steps">
+                        <div class="wizard-step active" data-step="1">
+                            <h2>Welcome to PMS GPS!</h2>
+                            <div class="wizard-icon">
+                                <i class="fas fa-location-arrow fa-4x"></i>
+                            </div>
+                            <p>Your personal guide to navigating relationships based on menstrual cycles.</p>
+                            <p>This app helps you track your partners' cycles and provides timely recommendations for dates, gifts, and behavior.</p>
+                        </div>
+                        
+                        <div class="wizard-step" data-step="2">
+                            <h2>How It Works</h2>
+                            <div class="wizard-illustration">
+                                <div class="cycle-diagram">
+                                    <div class="cycle-phase period">Period</div>
+                                    <div class="cycle-phase follicular">Follicular</div>
+                                    <div class="cycle-phase ovulation">Ovulation</div>
+                                    <div class="cycle-phase luteal">Luteal</div>
+                                </div>
+                            </div>
+                            <p>Science shows that women's preferences and moods change predictably throughout their cycle due to hormonal fluctuations.</p>
+                            <p>PMS GPS uses this knowledge to help you be attentive and understanding regardless of your relationship type.</p>
+                        </div>
+                        
+                        <div class="wizard-step" data-step="3">
+                            <h2>Choose Relationship Types</h2>
+                            <div class="relationship-types-container">
+                                <div class="relationship-type-card">
+                                    <i class="fas fa-heart"></i>
+                                    <h3>Partner</h3>
+                                    <p>Serious romantic partners and spouses</p>
+                                </div>
+                                <div class="relationship-type-card">
+                                    <i class="fas fa-fire"></i>
+                                    <h3>F*ckBuddy/Lover</h3>
+                                    <p>Casual intimate relationships</p>
+                                </div>
+                                <div class="relationship-type-card">
+                                    <i class="fas fa-briefcase"></i>
+                                    <h3>Co-Worker</h3>
+                                    <p>Professional colleagues</p>
+                                </div>
+                                <div class="relationship-type-card">
+                                    <i class="fas fa-user-friends"></i>
+                                    <h3>Friend</h3>
+                                    <p>Platonic friendships</p>
+                                </div>
+                                <div class="relationship-type-card">
+                                    <i class="fas fa-home"></i>
+                                    <h3>Family</h3>
+                                    <p>Family members</p>
+                                </div>
+                            </div>
+                            <p>PMS GPS provides tailored recommendations based on your relationship type, ensuring appropriate and helpful guidance.</p>
+                        </div>
+                        
+                        <div class="wizard-step" data-step="4">
+                            <h2>Your Privacy Matters</h2>
+                            <div class="wizard-icon">
+                                <i class="fas fa-shield-alt fa-4x"></i>
+                            </div>
+                            <p>All your data is stored locally on your device.</p>
+                            <p>Nothing is ever sent to any server or shared with anyone.</p>
+                            <p>Your relationship information stays completely private.</p>
+                        </div>
+                        
+                        <div class="wizard-step" data-step="5">
+                            <h2>Get Personalized Recommendations</h2>
+                            <div class="recommendations-preview">
+                                <div class="recommendation-card">
+                                    <h3>During Period</h3>
+                                    <p><i class="fas fa-utensils"></i> Relaxing night in with movies</p>
+                                    <p><i class="fas fa-gift"></i> Heating pad, comfort snacks</p>
+                                </div>
+                                <div class="recommendation-card">
+                                    <h3>During Ovulation</h3>
+                                    <p><i class="fas fa-utensils"></i> Dancing, adventure activities</p>
+                                    <p><i class="fas fa-gift"></i> Perfume, lingerie</p>
+                                </div>
+                            </div>
+                            <p>Get ideal date ideas, gift suggestions, and behavior tips for each phase of her cycle.</p>
+                        </div>
+                        
+                        <div class="wizard-step" data-step="6">
+                            <h2>Let's Get Started!</h2>
+                            <div class="wizard-icon">
+                                <i class="fas fa-rocket fa-4x"></i>
+                            </div>
+                            <p>Ready to become the most attentive partner ever?</p>
+                            <p>Add your first partner now and start receiving personalized recommendations.</p>
+                            <button id="wizard-add-partner" class="submit-btn">Add Your First Partner</button>
+                        </div>
+                    </div>
+                    
+                    <div class="wizard-nav">
+                        <button id="wizard-prev" class="nav-btn" disabled><i class="fas fa-arrow-left"></i> Previous</button>
+                        <div class="wizard-dots">
+                            <span class="wizard-dot active" data-step="1"></span>
+                            <span class="wizard-dot" data-step="2"></span>
+                            <span class="wizard-dot" data-step="3"></span>
+                            <span class="wizard-dot" data-step="4"></span>
+                            <span class="wizard-dot" data-step="5"></span>
+                            <span class="wizard-dot" data-step="6"></span>
+                        </div>
+                        <button id="wizard-next" class="nav-btn">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                    
+                    <button id="wizard-skip" class="skip-btn">Skip Tutorial</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>PMS GPS &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
