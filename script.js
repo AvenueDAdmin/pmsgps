@@ -725,19 +725,70 @@ function calculateCurrentPhase(partner) {
  * @param {String} relationshipType - The type of relationship
  * @returns {String} - A recommendation string
  */
-function generateRecommendation(phase, relationshipType = RELATIONSHIP_TYPES.LOVER) {
-    // Default to lover relationship if not specified
-    const relType = relationshipType || RELATIONSHIP_TYPES.LOVER;
-    
-    // Get recommendations for this relationship type and phase
-    const phaseData = RECOMMENDATIONS[relType][phase.toUpperCase()];
-    
-    // Pick a random recommendation from each category
-    const dateType = phaseData.DATE_TYPE[Math.floor(Math.random() * phaseData.DATE_TYPE.length)];
-    const gift = phaseData.GIFTS[Math.floor(Math.random() * phaseData.GIFTS.length)];
-    const support = phaseData.EMOTIONAL_SUPPORT[Math.floor(Math.random() * phaseData.EMOTIONAL_SUPPORT.length)];
-    
-    return `Try a "${dateType}" date. Consider ${gift.toLowerCase()} as a gift. ${support}.`;
+function generateRecommendation(phase, relationshipType) {
+    try {
+        // Set safe defaults
+        let relType = RELATIONSHIP_TYPES.LOVER;
+        let safePhase = PHASES.REGULAR.toUpperCase();
+        
+        // Safely get relationship type
+        if (relationshipType) {
+            // Make sure it's a valid key in RELATIONSHIP_TYPES
+            for (const key in RELATIONSHIP_TYPES) {
+                if (RELATIONSHIP_TYPES[key] === relationshipType) {
+                    relType = relationshipType;
+                    break;
+                }
+            }
+        }
+        
+        // Safely get phase
+        if (phase) {
+            const upperPhase = phase.toUpperCase();
+            if (upperPhase === PHASES.PERIOD.toUpperCase() || 
+                upperPhase === PHASES.FERTILE.toUpperCase() || 
+                upperPhase === PHASES.REGULAR.toUpperCase()) {
+                safePhase = upperPhase;
+            }
+        }
+        
+        // Check if RECOMMENDATIONS exists and has the relationship type
+        if (!RECOMMENDATIONS || !RECOMMENDATIONS[relType]) {
+            return "No recommendations available for this relationship type.";
+        }
+        
+        // Check if phase data exists
+        const phaseData = RECOMMENDATIONS[relType][safePhase];
+        if (!phaseData) {
+            return "No recommendations available for this phase.";
+        }
+        
+        // Check if recommendation categories exist
+        if (!phaseData.DATE_TYPE || !phaseData.GIFTS || !phaseData.EMOTIONAL_SUPPORT) {
+            return "Recommendation data is incomplete.";
+        }
+        
+        // Make sure arrays have elements
+        if (phaseData.DATE_TYPE.length === 0 || 
+            phaseData.GIFTS.length === 0 || 
+            phaseData.EMOTIONAL_SUPPORT.length === 0) {
+            return "Recommendation data is empty.";
+        }
+        
+        // Safely get random elements
+        const dateIndex = Math.floor(Math.random() * phaseData.DATE_TYPE.length);
+        const giftIndex = Math.floor(Math.random() * phaseData.GIFTS.length);
+        const supportIndex = Math.floor(Math.random() * phaseData.EMOTIONAL_SUPPORT.length);
+        
+        const dateType = phaseData.DATE_TYPE[dateIndex] || "any activity";
+        const gift = phaseData.GIFTS[giftIndex] || "something thoughtful";
+        const support = phaseData.EMOTIONAL_SUPPORT[supportIndex] || "Be supportive";
+        
+        return `Try a "${dateType}" date. Consider ${gift.toLowerCase()} as a gift. ${support}.`;
+    } catch (error) {
+        console.error("Error generating recommendation:", error);
+        return "Unable to generate recommendation at this time.";
+    }
 }
 
 function showPartnerDetails(partner) {

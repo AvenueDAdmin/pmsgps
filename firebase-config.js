@@ -10,23 +10,25 @@ if (storedConfig) {
     console.error('Error parsing stored Firebase config:', e);
     // Fall back to default config
     firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
+      apiKey: "AIzaSyAJTIGOoso735qgGxiJ-oSvhUkNku0w2uA",
       authDomain: "pmsgps.firebaseapp.com",
       projectId: "pmsgps",
       storageBucket: "pmsgps.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      messagingSenderId: "347797810183",
+      appId: "1:347797810183:web:bfa62dd293d4ca567a4ea2",
+      measurementId: "G-00BS29BZTZ"
     };
   }
 } else {
   // Default config (needs to be replaced with real values)
   firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
+    apiKey: "AIzaSyAJTIGOoso735qgGxiJ-oSvhUkNku0w2uA",
     authDomain: "pmsgps.firebaseapp.com",
     projectId: "pmsgps",
     storageBucket: "pmsgps.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    messagingSenderId: "347797810183",
+    appId: "1:347797810183:web:bfa62dd293d4ca567a4ea2",
+    measurementId: "G-00BS29BZTZ"
   };
 }
 
