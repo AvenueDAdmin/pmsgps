@@ -5,8 +5,36 @@ const EXPIRY_DAYS = 30;
 
 // Check if user is authenticated on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Authentication check comes first, before any other app initialization
-    checkAuthentication();
+    // Check if we're on the welcome page - don't redirect if we are
+    const isWelcomePage = window.location.pathname.includes('welcome.html');
+    if (isWelcomePage) {
+        // Just initialize Firebase on welcome page, but don't show auth screen
+        console.log("On welcome page, not showing auth screen");
+        return;
+    }
+    
+    // Check for URL parameters that might contain login info from welcome page
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    const password = urlParams.get('password');
+    const action = urlParams.get('action');
+    
+    // If URL has auth parameters, handle the action
+    if (email && password && action) {
+        // Clear the URL parameters to avoid exposing credentials
+        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        if (action === 'signup') {
+            // Create a new account
+            createAccount(email, password);
+        } else if (action === 'login') {
+            // Log in with credentials
+            loginWithEmailPassword(email, password);
+        }
+    } else {
+        // Normal authentication check
+        checkAuthentication();
+    }
     
     // Firebase Auth state change listener
     firebase.auth().onAuthStateChanged(function(user) {
@@ -23,10 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         } else {
-            // No user is signed in, show auth screen
+            // No user is signed in, show auth screen unless we're on welcome page
             console.log("No user is signed in");
             isAuthenticated = false;
-            showAuthScreen();
+            if (!isWelcomePage) {
+                showAuthScreen();
+            }
         }
     });
     
@@ -1094,6 +1124,21 @@ function createEnhancedPartnerCard(partner) {
 function checkAuthentication() {
     // Firebase will handle authentication state
     console.log("Checking authentication via Firebase");
+    
+    // Check if we're on the welcome page
+    const isWelcomePage = window.location.pathname.includes('welcome.html');
+    
+    // Only show auth screen if we're not on the welcome page
+    if (!isWelcomePage) {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                // Only show auth screen if we're not on welcome page
+                showAuthScreen();
+            } else {
+                showApp();
+            }
+        });
+    }
 }
 
 function showAuthScreen() {

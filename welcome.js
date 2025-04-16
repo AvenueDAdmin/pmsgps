@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     signInBtn.addEventListener('click', openSignInModal);
     tryNowBtn.addEventListener('click', openSignUpModal);
     signupBtn.addEventListener('click', openSignUpModal);
-    signinSubmitBtn.addEventListener('click', verifyPin);
     
     // Close modal buttons
     closeBtns.forEach(btn => {
@@ -62,34 +61,43 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         const email = document.getElementById('signup-email').value;
-        const pin = document.getElementById('setup-pin').value;
-        const confirmPin = document.getElementById('confirm-pin').value;
+        const password = document.getElementById('setup-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
         
-        if (pin !== confirmPin) {
-            alert('PINs do not match. Please try again.');
+        if (password !== confirmPassword) {
+            alert('Passwords do not match. Please try again.');
             return;
         }
         
-        if (pin.length !== 4 || !/^\d+$/.test(pin)) {
-            alert('PIN must be exactly 4 digits.');
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters long.');
             return;
         }
         
-        // Store the PIN
-        localStorage.setItem(PIN_STORAGE_KEY, pin);
+        // Redirect to app with email and password in parameters (for Firebase signup)
+        const params = new URLSearchParams();
+        params.append('email', email);
+        params.append('password', password);
+        params.append('action', 'signup');
         
-        // Store user email (for future email integration)
-        localStorage.setItem('pms_user_email', email);
-        
-        // Authenticate user
-        authenticateUser();
-        
-        // Close modal
-        closeModal(signupModal);
-        
-        // Redirect to app
-        window.location.href = 'index.html';
+        window.location.href = 'index.html?' + params.toString();
     });
+    
+    // Handle signin form submission
+    if (signinSubmitBtn) {
+        signinSubmitBtn.addEventListener('click', function() {
+            const email = document.getElementById('signin-email') ? document.getElementById('signin-email').value : '';
+            const password = document.getElementById('pin-input') ? document.getElementById('pin-input').value : '';
+            
+            // Redirect to app with login credentials
+            const params = new URLSearchParams();
+            params.append('email', email);
+            params.append('password', password);
+            params.append('action', 'login');
+            
+            window.location.href = 'index.html?' + params.toString();
+        });
+    }
     
     // Set up PIN input fields
     setupPinInputFields();
@@ -97,8 +105,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Functions
 function openSignInModal() {
-    setupPinInputFields();
-    document.getElementById('signin-error-message').style.display = 'none';
+    const errorElement = document.getElementById('auth-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+    }
     openModal(signinModal);
 }
 
@@ -107,11 +117,15 @@ function openSignUpModal() {
 }
 
 function openModal(modal) {
-    modal.style.display = 'block';
+    if (modal) {
+        modal.style.display = 'block';
+    }
 }
 
 function closeModal(modal) {
-    modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function setupPinInputFields() {
