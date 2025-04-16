@@ -21,22 +21,52 @@
                 <i class="fas fa-location-arrow"></i>
                 <h1>PMS GPS</h1>
             </div>
-            <h2>Enter Your PIN</h2>
+            <h2>Sign In</h2>
             
-            <div class="pin-input-container">
-                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*" autofocus>
-                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
-                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]*">
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                
+                <p id="auth-error-message" class="auth-error-message">Invalid email or password</p>
+                
+                <button type="submit" id="auth-submit-btn" class="auth-submit-btn">Login</button>
+                
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" id="show-signup">Sign Up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Screen -->
+    <div id="signup-screen" class="auth-screen" style="display:none;">
+        <div class="auth-container">
+            <div class="logo">
+                <i class="fas fa-location-arrow"></i>
+                <h1>PMS GPS</h1>
             </div>
+            <h2>Create Account</h2>
             
-            <p id="auth-error-message" class="auth-error-message">Incorrect PIN. Please try again.</p>
-            
-            <button id="auth-submit-btn" class="auth-submit-btn">Login</button>
-            
-            <p class="auth-reset">
-                <a href="#" id="reset-pin-link">Forgot PIN?</a>
-            </p>
+            <form id="signup-form" class="auth-form">
+                <div class="form-group">
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-password" placeholder="Password (min 6 characters)" required minlength="6">
+                </div>
+                
+                <p id="signup-error-message" class="auth-error-message">Error creating account</p>
+                
+                <button type="submit" id="signup-submit-btn" class="auth-submit-btn">Sign Up</button>
+                
+                <p class="auth-switch">
+                    Already have an account? <a href="#" id="show-login">Login</a>
+                </p>
+            </form>
         </div>
     </div>
 

@@ -1,8 +1,6 @@
 // Authentication functionality
 let isAuthenticated = false;
-const DEFAULT_PIN = '1234'; // Default PIN for first-time setup
 const AUTH_STORAGE_KEY = 'pms_auth_data';
-const PIN_STORAGE_KEY = 'pms_pin';
 const EXPIRY_DAYS = 30;
 
 // Check if user is authenticated on page load
@@ -14,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             // User is signed in, load data from Firebase
+            console.log("User is signed in:", user.email);
+            isAuthenticated = true;
+            showApp();
+            
             loadPartnersFromFirebase().then(loadedPartners => {
                 if (loadedPartners && loadedPartners.length > 0) {
                     partners = loadedPartners;
@@ -21,11 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         } else {
-            // No user is signed in, try to sign in anonymously
-            firebase.auth().signInAnonymously()
-                .catch(error => {
-                    console.error("Anonymous auth error:", error);
-                });
+            // No user is signed in, show auth screen
+            console.log("No user is signed in");
+            isAuthenticated = false;
+            showAuthScreen();
         }
     });
     
@@ -461,10 +462,8 @@ document.getElementById('sign-out-btn').addEventListener('click', () => {
     firebase.auth().signOut()
         .then(() => {
             console.log("User signed out successfully");
-            // Clear local storage authentication data
-            localStorage.removeItem(AUTH_STORAGE_KEY);
-            // Redirect to welcome page
-            window.location.href = 'welcome.html';
+            // Redirect to login screen
+            showAuthScreen();
         })
         .catch((error) => {
             console.error("Error signing out:", error);
@@ -1093,130 +1092,87 @@ function createEnhancedPartnerCard(partner) {
 
 // Authentication Functions
 function checkAuthentication() {
-    const storedAuthData = localStorage.getItem(AUTH_STORAGE_KEY);
-    
-    if (!storedAuthData) {
-        // Redirect to welcome page for first-time setup
-        window.location.href = 'welcome.html';
-        return;
-    }
-    
-    const authData = JSON.parse(storedAuthData);
-    const currentTime = new Date().getTime();
-    
-    if (currentTime > authData.expiryTime) {
-        // Session expired, redirect to welcome page
-        isAuthenticated = false;
-        window.location.href = 'welcome.html';
-    } else {
-        // Still authenticated
-        isAuthenticated = true;
-        document.getElementById('auth-screen').style.display = 'none';
-        document.getElementById('app-container').style.display = 'block';
-    }
+    // Firebase will handle authentication state
+    console.log("Checking authentication via Firebase");
 }
 
 function showAuthScreen() {
     const authScreen = document.getElementById('auth-screen');
-    
-    // Set up PIN input field behavior
-    setupPinInputFields();
-    
-    // Hide error message initially
-    document.getElementById('auth-error-message').style.display = 'none';
-    
-    // Add event listener for submit button
-    document.getElementById('auth-submit-btn').addEventListener('click', verifyPin);
-    
-    // Add event listener for reset link
-    document.getElementById('reset-pin-link').addEventListener('click', showResetPinPrompt);
+    const signupScreen = document.getElementById('signup-screen');
+    const appContainer = document.getElementById('app-container');
     
     // Show auth screen and hide the main app content
     authScreen.style.display = 'flex';
-    document.getElementById('app-container').style.display = 'none';
-}
-
-function setupPinInputFields() {
-    const pinInputs = document.querySelectorAll('.pin-digit');
+    signupScreen.style.display = 'none';
+    appContainer.style.display = 'none';
     
-    // Clear inputs
-    pinInputs.forEach(input => {
-        input.value = '';
+    // Hide error message initially
+    document.getElementById('auth-error-message').style.display = 'none';
+    document.getElementById('signup-error-message').style.display = 'none';
+    
+    // Add event listener for login form
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        loginWithEmailPassword(email, password);
     });
     
-    // Focus first input
-    pinInputs[0].focus();
+    // Add event listener for signup form
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        createAccount(email, password);
+    });
     
-    pinInputs.forEach((input, index) => {
-        // Handle input
-        input.addEventListener('input', function() {
-            // Move to next input
-            if (this.value.length === 1) {
-                if (index < pinInputs.length - 1) {
-                    pinInputs[index + 1].focus();
-                } else {
-                    // If last digit, verify PIN
-                    verifyPin();
-                }
-            }
-        });
-        
-        // Handle backspace
-        input.addEventListener('keydown', function(e) {
-            if (e.key === 'Backspace') {
-                if (this.value.length === 0 && index > 0) {
-                    // If empty and not first input, focus previous
-                    pinInputs[index - 1].focus();
-                }
-            }
-        });
-        
-        // Enforce number only
-        input.addEventListener('keypress', function(e) {
-            if (!/[0-9]/.test(e.key)) {
-                e.preventDefault();
-            }
-        });
+    // Switch between login and signup
+    document.getElementById('show-signup').addEventListener('click', function(e) {
+        e.preventDefault();
+        authScreen.style.display = 'none';
+        signupScreen.style.display = 'flex';
+    });
+    
+    document.getElementById('show-login').addEventListener('click', function(e) {
+        e.preventDefault();
+        authScreen.style.display = 'flex';
+        signupScreen.style.display = 'none';
     });
 }
 
-function verifyPin() {
-    const pinInputs = document.querySelectorAll('.pin-digit');
-    let enteredPin = '';
-    
-    pinInputs.forEach(input => {
-        enteredPin += input.value;
-    });
-    
-    const storedPin = localStorage.getItem(PIN_STORAGE_KEY);
-    
-    if (enteredPin === storedPin) {
-        // Correct PIN
-        authenticateUser();
-    } else {
-        // Incorrect PIN
-        showAuthError('Incorrect PIN. Please try again.');
-        clearPinInputs();
-    }
+function loginWithEmailPassword(email, password) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log("User logged in:", user.email);
+            showApp();
+        })
+        .catch((error) => {
+            console.error("Login error:", error);
+            const errorMessage = error.message;
+            showAuthError(errorMessage);
+        });
 }
 
-function authenticateUser() {
-    // Set authentication status
-    isAuthenticated = true;
-    
-    // Calculate expiry time (30 days from now)
-    const expiryTime = new Date().getTime() + (EXPIRY_DAYS * 24 * 60 * 60 * 1000);
-    
-    // Store authentication data
-    const authData = {
-        authenticated: true,
-        expiryTime: expiryTime
-    };
-    
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
-    
-    // Hide auth screen and show app
+function createAccount(email, password) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed up and signed in
+            const user = userCredential.user;
+            console.log("Account created for:", user.email);
+            showApp();
+        })
+        .catch((error) => {
+            console.error("Signup error:", error);
+            const errorMessage = error.message;
+            showSignupError(errorMessage);
+        });
+}
+
+function showApp() {
     document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('signup-screen').style.display = 'none';
     document.getElementById('app-container').style.display = 'block';
 }
 
@@ -1226,37 +1182,24 @@ function showAuthError(message) {
     errorElement.style.display = 'block';
     
     // Add shake animation
-    const pinContainer = document.querySelector('.pin-input-container');
-    pinContainer.classList.add('shake');
+    const form = document.getElementById('login-form');
+    form.classList.add('shake');
     
     setTimeout(() => {
-        pinContainer.classList.remove('shake');
+        form.classList.remove('shake');
     }, 500);
 }
 
-function clearPinInputs() {
-    const pinInputs = document.querySelectorAll('.pin-digit');
-    pinInputs.forEach(input => {
-        input.value = '';
-    });
-    pinInputs[0].focus();
-}
-
-function showResetPinPrompt() {
-    // Simple reset for now - just resets to default PIN
-    if (confirm('This will reset your PIN to the default. Continue?')) {
-        localStorage.setItem(PIN_STORAGE_KEY, DEFAULT_PIN);
-        alert('PIN has been reset to the default (1234)');
-        clearPinInputs();
-    }
-}
-
-function changePin(currentPin, newPin) {
-    const storedPin = localStorage.getItem(PIN_STORAGE_KEY);
+function showSignupError(message) {
+    const errorElement = document.getElementById('signup-error-message');
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
     
-    if (currentPin === storedPin) {
-        localStorage.setItem(PIN_STORAGE_KEY, newPin);
-        return true;
-    }
-    return false;
+    // Add shake animation
+    const form = document.getElementById('signup-form');
+    form.classList.add('shake');
+    
+    setTimeout(() => {
+        form.classList.remove('shake');
+    }, 500);
 }
