@@ -285,6 +285,26 @@
         </div>
     </div>
 
+    <div class="onboarding-buttons">
+        <button id="simple-mode" class="onboarding-btn primary-btn">Simple Mode (Local Storage)</button>
+        <button id="firebase-mode" class="onboarding-btn secondary-btn">Cloud Storage (Firebase Setup)</button>
+    </div>
+    
+    <div class="storage-explanation">
+        <p><strong>Simple Mode:</strong> Stores all data on your device only. If you uninstall/clear data, everything is lost.</p>
+        <p><strong>Cloud Storage:</strong> Securely stores your data in the cloud, accessible across devices with the same account.</p>
+    </div>
+
     <script src="welcome.js"></script>
+    
+    <script>
+        document.getElementById('simple-mode').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+        
+        document.getElementById('firebase-mode').addEventListener('click', function() {
+            window.location.href = 'firebase-setup.html';
+        });
+    </script>
 </body>
 </html> 

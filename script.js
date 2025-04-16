@@ -10,7 +10,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Authentication check comes first, before any other app initialization
     checkAuthentication();
     
-    // Rest of the app initialization happens after auth check
+    // Firebase Auth state change listener
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            // User is signed in, load data from Firebase
+            loadPartnersFromFirebase().then(loadedPartners => {
+                if (loadedPartners && loadedPartners.length > 0) {
+                    partners = loadedPartners;
+                    renderPartnersList();
+                }
+            });
+        } else {
+            // No user is signed in, try to sign in anonymously
+            firebase.auth().signInAnonymously()
+                .catch(error => {
+                    console.error("Anonymous auth error:", error);
+                });
+        }
+    });
+    
+    // Rest of the app initialization
     renderPartnersList();
     
     // Show onboarding wizard for first-time users
@@ -409,7 +428,7 @@ const wizardAddPartner = document.getElementById('wizard-add-partner');
 const wizardSteps = document.querySelectorAll('.wizard-step');
 
 // State
-let partners = JSON.parse(localStorage.getItem('partners')) || [];
+let partners = []; // This will now load from Firebase
 let currentWizardStep = 1;
 let hasCompletedOnboarding = localStorage.getItem('hasCompletedOnboarding') === 'true';
 let darkMode = localStorage.getItem('darkMode') === 'true';
@@ -624,38 +643,52 @@ function closeModal(modal) {
 }
 
 function addPartner(name, relationshipType, lastPeriod, cycleLength, periodLength) {
-    const partner = {
-        id: Date.now(),
+    const newPartner = {
+        id: Date.now().toString(),
         name,
         relationshipType,
-        lastPeriod,
-        cycleLength,
-        periodLength
+        lastPeriod: new Date(lastPeriod).toISOString(),
+        cycleLength: parseInt(cycleLength),
+        periodLength: parseInt(periodLength),
+        dateAdded: new Date().toISOString()
     };
     
-    partners.push(partner);
+    partners.push(newPartner);
     savePartners();
+    return newPartner;
 }
 
 function savePartners() {
+    // Save to both localStorage and Firebase for backwards compatibility
     localStorage.setItem('partners', JSON.stringify(partners));
+    savePartnersToFirebase(partners);
 }
 
 function renderPartnersList() {
+    const partnersList = document.getElementById('partners-list');
+    
+    // Clear existing list
+    partnersList.innerHTML = '';
+    
     if (partners.length === 0) {
+        // Show empty state
         partnersList.innerHTML = `
             <div class="empty-state">
                 <p>No partners added yet</p>
                 <button id="add-first-partner-btn">Add Your First Partner</button>
             </div>
         `;
-        document.getElementById('add-first-partner-btn').addEventListener('click', () => {
-            openModal(addPartnerModal);
-        });
+        
+        // Add event listener to the "Add Your First Partner" button
+        const addFirstPartnerBtn = document.getElementById('add-first-partner-btn');
+        if (addFirstPartnerBtn) {
+            addFirstPartnerBtn.addEventListener('click', function() {
+                openModal(document.getElementById('add-partner-modal'));
+            });
+        }
+        
         return;
     }
-    
-    partnersList.innerHTML = '';
     
     partners.forEach(partner => {
         const card = createEnhancedPartnerCard(partner);

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PMS GPS - Firebase Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #e9556d;
+        }
+        .step {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note {
+            padding: 10px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #e9556d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PMS GPS - Firebase Setup</h1>
+    
+    <div class="note">
+        <strong>Important:</strong> You'll need to complete this setup once to enable cloud storage for your PMS GPS app.
+    </div>
+    
+    <div class="step">
+        <h2>Step 1: Create a Firebase Project</h2>
+        <ol>
+            <li>Go to <a href="https://console.firebase.google.com/" target="_blank">Firebase Console</a></li>
+            <li>Click "Add project" or "Create a project"</li>
+            <li>Enter "PMSGPS" as your project name</li>
+            <li>Follow the setup wizard (you can disable Google Analytics if you want)</li>
+            <li>Click "Create project"</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 2: Register Your Web App</h2>
+        <ol>
+            <li>In your Firebase project dashboard, click the web icon (</>) to add a web app</li>
+            <li>Register your app with the name "PMS GPS Web"</li>
+            <li>No need to set up Firebase Hosting</li>
+            <li>After registration, you'll see your Firebase configuration. Copy it!</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 3: Enable Authentication</h2>
+        <ol>
+            <li>In the Firebase console, go to "Authentication" in the left menu</li>
+            <li>Click "Get started"</li>
+            <li>Enable "Anonymous" authentication method</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Step 4: Enable Firestore Database</h2>
+        <ol>
+            <li>In the Firebase console, go to "Firestore Database" in the left menu</li>
+            <li>Click "Create database"</li>
+            <li>Start in production mode</li>
+            <li>Choose a location close to your users</li>
+            <li>Update the Firestore security rules to allow anonymous users:</li>
+        </ol>
+        <pre>
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+        </pre>
+    </div>
+    
+    <div class="step">
+        <h2>Step 5: Enter Your Firebase Configuration</h2>
+        <p>Paste your Firebase config object from Step 2 here:</p>
+        <textarea id="firebaseConfig" rows="10" placeholder="{
+  apiKey: '...',
+  authDomain: '...',
+  projectId: '...',
+  storageBucket: '...',
+  messagingSenderId: '...',
+  appId: '...'
+}"></textarea>
+        <button onclick="saveConfig()">Save Configuration</button>
+    </div>
+    
+    <div class="step">
+        <h2>Step 6: Return to Your App</h2>
+        <p>After saving your configuration, go back to your app to start using Firebase!</p>
+        <a href="index.html"><button>Go to PMS GPS App</button></a>
+    </div>
+    
+    <script>
+        function saveConfig() {
+            const configText = document.getElementById('firebaseConfig').value;
+            
+            try {
+                // Validate the config
+                const config = new Function('return ' + configText)();
+                
+                if (!config.apiKey || !config.projectId) {
+                    alert('Invalid configuration. Please make sure you copy the entire Firebase config object.');
+                    return;
+                }
+                
+                // Save to local storage first
+                localStorage.setItem('firebase_config', configText);
+                
+                // Update the firebase-config.js file
+                fetch('firebase-config.js')
+                    .then(response => response.text())
+                    .then(text => {
+                        const updatedText = text.replace(
+                            /const firebaseConfig = {[\s\S]*?};/,
+                            'const firebaseConfig = ' + configText + ';'
+                        );
+                        
+                        // In a real app, you'd post this to a server to update the file
+                        // For now, let's just show instructions
+                        alert('Configuration saved! Please update your firebase-config.js file with the new configuration.');
+                    });
+                
+            } catch (error) {
+                alert('Error parsing Firebase configuration: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html> 
