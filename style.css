@@ -1327,3 +1327,30 @@ select:focus {
 .change-pin-btn:hover {
     background-color: #218838;
 }
+
+/* Add styling for sign out button */
+#sign-out-btn {
+    background-color: transparent;
+    color: #e9556d;
+    border: 1px solid #e9556d;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+#sign-out-btn:hover {
+    background-color: #e9556d;
+    color: white;
+}
+
+.dark-mode #sign-out-btn {
+    border-color: #ff8ca0;
+    color: #ff8ca0;
+}
+
+.dark-mode #sign-out-btn:hover {
+    background-color: #ff8ca0;
+    color: #333;
+}

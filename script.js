@@ -455,6 +455,23 @@ settingsBtn.addEventListener('click', () => {
     alert('Settings functionality will be added in future updates.');
 });
 
+// Add sign out button listener
+document.getElementById('sign-out-btn').addEventListener('click', () => {
+    // Sign out from Firebase
+    firebase.auth().signOut()
+        .then(() => {
+            console.log("User signed out successfully");
+            // Clear local storage authentication data
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+            // Redirect to welcome page
+            window.location.href = 'welcome.html';
+        })
+        .catch((error) => {
+            console.error("Error signing out:", error);
+            alert("There was a problem signing out. Please try again.");
+        });
+});
+
 closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         closeModal(btn.closest('.modal'));
