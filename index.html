@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- NOTE: This file (index.html) is now serving as the welcome page for PMS GPS -->
+<!-- It will be the landing page when users visit PMSgps.com -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -45,11 +47,97 @@
             overflow-x: hidden;
         }
         
+        /* Fix for phone-frame display on mobile */
+        .phone-frame {
+            position: relative;
+            background-color: #222;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            max-width: 300px;
+            height: auto;
+            box-sizing: border-box;
+        }
+        
+        .phone-screen {
+            background-color: #fff5f7;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 190%; /* Aspect ratio for phone screen */
+        }
+        
+        .phone-screen svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        /* Fix for screenshots-carousel on mobile */
+        .screenshots-carousel {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                width: 100%;
+                padding: 0 1rem;
+                box-sizing: border-box;
+            }
+            
+            .feature-card {
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 1.5rem;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .screenshots-carousel {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
         @media (max-width: 480px) {
             .phone-frame {
                 transform: none !important;
                 width: 85%;
                 max-width: 260px;
+                padding: 10px;
+                border-radius: 30px;
+                margin: 10px auto 30px;
+            }
+            
+            .phone-screen {
+                border-radius: 25px;
+                padding-bottom: 200%;
+            }
+            
+            .feature-card {
+                max-width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .feature-card i {
+                font-size: 2.5rem;
+                color: #e9556d;
+                margin-bottom: 1rem;
             }
         }
     </style>
