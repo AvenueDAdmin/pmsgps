@@ -191,15 +191,17 @@ html, body {
     border-radius: 30px;
     overflow: hidden;
     position: relative;
-    height: 560px;
     width: 100%;
+    height: 0;
+    padding-bottom: 200%; /* Fixed aspect ratio 1:2 */
 }
 
-.phone-screen img {
+.phone-screen svg {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
 }
 
 /* Features Section */
@@ -305,6 +307,7 @@ html, body {
     max-width: 1200px;
     position: relative;
     z-index: 1;
+    padding: 1rem;
 }
 
 /* Signup Section */
@@ -497,14 +500,24 @@ html, body {
     }
     
     .screenshots-carousel {
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 3rem;
+        padding: 1rem;
     }
     
     .phone-frame {
+        transform: none;
         margin: 20px auto;
-        transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: 280px;
+        max-width: 90%;
+    }
+    
+    .phone-frame:hover {
+        transform: none;
+    }
+    
+    .phone-screen {
+        height: 520px;
     }
 }
 
@@ -534,21 +547,25 @@ html, body {
     }
     
     .phone-frame {
-        max-width: 280px;
-        width: 90%;
+        max-width: 260px;
+        width: 85%;
+        padding: 12px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         margin: 15px auto;
-        transform: none !important;
     }
     
     .screenshots-carousel {
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 1rem;
+        overflow: visible;
+        width: auto;
+        gap: 4rem;
     }
     
     .phone-screen {
-        height: auto;
-        aspect-ratio: 9/16;
+        padding-bottom: 200%; /* Maintain aspect ratio */
     }
 }
 
@@ -579,15 +596,29 @@ html, body {
     }
     
     .phone-frame {
-        max-width: 260px;
-        width: 85%;
+        transform: none !important;
+        max-width: 220px;
+        width: 80%;
         padding: 10px;
-        margin: 10px auto;
+        border-radius: 30px;
+        margin: 10px auto 30px;
     }
     
-    .phone-frame::before,
+    .phone-screen {
+        height: 420px;
+        border-radius: 25px;
+    }
+    
+    .phone-frame::before {
+        width: 50px;
+        height: 8px;
+        top: 20px;
+    }
+    
     .phone-frame::after {
-        transform: scale(0.8) translateX(-60%);
+        width: 35px;
+        height: 35px;
+        bottom: 12px;
     }
     
     .welcome-page {

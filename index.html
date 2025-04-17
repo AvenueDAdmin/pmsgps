@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#e9556d">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,27 +19,38 @@
             padding: 0;
             overflow-x: hidden;
             width: 100%;
+            box-sizing: border-box;
         }
         
         body {
             max-width: 100%;
+            position: relative;
         }
         
         .welcome-page {
-            width: 100vw;
+            width: 100%;
             overflow-x: hidden;
             max-width: 100%;
+            position: relative;
         }
         
         .features-section,
         .screenshots-section,
         .signup-section,
         .welcome-footer {
-            width: 100vw;
+            width: 100%;
             max-width: 100%;
             margin: 0;
             box-sizing: border-box;
             overflow-x: hidden;
+        }
+        
+        @media (max-width: 480px) {
+            .phone-frame {
+                transform: none !important;
+                width: 85%;
+                max-width: 260px;
+            }
         }
     </style>
 </head>
@@ -67,7 +78,7 @@
             <div class="hero-image">
                 <div class="phone-frame">
                     <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                             <!-- Background -->
                             <rect width="280" height="560" fill="#fff5f7"/>
                             
@@ -130,7 +141,7 @@
             <div class="screenshots-carousel">
                 <div class="phone-frame">
                     <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                             <!-- Background -->
                             <rect width="280" height="560" fill="#fff5f7"/>
                             
@@ -154,7 +165,7 @@
                 </div>
                 <div class="phone-frame">
                     <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                             <!-- Background -->
                             <rect width="280" height="560" fill="#fff5f7"/>
                             
@@ -183,7 +194,7 @@
                 </div>
                 <div class="phone-frame">
                     <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                             <!-- Background -->
                             <rect width="280" height="560" fill="#fff5f7"/>
                             
