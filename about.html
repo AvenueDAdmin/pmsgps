@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#e9556d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="About PMS GPS and its founder Caroline Given">
+    <title>About PMS GPS - Our Story</title>
+    <link rel="stylesheet" href="welcome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAB1UlEQVR42u3XP0hVURzA8e+5XpQiCoJoaKihIZqCphZxaVNcGiIIGgKHEByCwhqioSVaXBwcGlpcRJCGICIaIoKgoSEiqKEhaHiDQN/C90MP37vvvnvV1w86cDj3nHvu+d3f75x7rvzrJRGnVNlOJ51c4ALHOEqKQ2ywzhpLLPCeGdaI/qoAXXTzgCec4UBZ38dsMMU4D5klLF4Aqe2E0cQj+jnFvhK2PnrppZv7jDMSh1GUQIpBnnKRPUUY+S0Nx3nNEPVFC9TwnAGSJbJPc4MWmmimnQtcKvldkjQP6S1GoJZR2mLYp/lACHvs0E43zcSZP5OMMrA7wSmecTKGvZ9xtvLa3jPA2ZgxBxmmfneBI4zGsI8xTlSmvcsQdTFiVvOQE5UCnGMghn2CZ0Rl2oPcLitQ+XsRrpYDaGawTPad7NN/wQdmy7y/wXUaquFxGftXlmOc6Lf8YquM/TIdlQJ08jWGfYqVPe53WS9jX6GvUoAkb2IGmYvos8zl3N2If2BEAlAyXSlrfCrCPJan3xrLRFULUPr9/vNRcovXOfot8rFqO2EUMccsHazm6R9ELPGLrVKA0q+LuLm9AOHWJ5goTq7af0Kl7NHWSZLxskcJJYnYVnZiESX5C34TS36rzsoQAAAAAElFTkSuQmCC">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            background-color: #fff5f7;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .about-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: #e9556d;
+            font-size: 1.5rem;
+        }
+        
+        .logo h1 {
+            color: #e9556d;
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .about-nav a {
+            color: #e9556d;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .about-nav a:hover {
+            color: #d4184c;
+        }
+        
+        .about-hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #e9556d, #ff8c94);
+            color: white;
+        }
+        
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .founder-section {
+            padding: 80px 0;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .founder-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .founder-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .founder-story {
+            flex: 1;
+        }
+        
+        .founder-story h2 {
+            color: #e9556d;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+        
+        .founder-story p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #e9556d;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 30px;
+            border-top: 2px solid #f0f0f0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .mission-section {
+            background-color: white;
+            padding: 80px 0;
+        }
+        
+        .mission-section h2 {
+            text-align: center;
+            color: #e9556d;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .mission-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-card i {
+            font-size: 2.5rem;
+            color: #e9556d;
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .mission-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .partners-section {
+            padding: 60px 0;
+            background-color: #fff5f7;
+            text-align: center;
+        }
+        
+        .partners-section h2 {
+            color: #e9556d;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .partner-feature {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .partner-feature p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #555;
+        }
+        
+        .partner-feature a {
+            color: #e9556d;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .partner-feature a:hover {
+            color: #d4184c;
+        }
+        
+        .partner-logo {
+            margin: 20px auto;
+            max-width: 250px;
+        }
+        
+        .partner-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .partner-logo:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+        
+        .about-footer a {
+            color: #e9556d;
+            text-decoration: none;
+        }
+        
+        .about-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .founder-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 0;
+            }
+            
+            .founder-image {
+                margin-bottom: 30px;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .quote {
+                font-size: 1.1rem;
+                padding: 20px;
+                margin-bottom: 40px;
+            }
+            
+            .mission-section {
+                padding: 40px 0;
+            }
+            
+            .mission-section h2 {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="about-header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-location-arrow"></i>
+            <h1>PMS GPS</h1>
+        </a>
+        <nav class="about-nav">
+            <a href="index.html">Home</a>
+            <a href="#" id="sign-in-link">Sign In</a>
+        </nav>
+    </header>
+    
+    <section class="about-hero">
+        <div class="container">
+            <h1>Our Story</h1>
+            <p>How a moment of insight led to a revolution in relationship understanding</p>
+        </div>
+    </section>
+    
+    <section class="founder-section">
+        <div class="container">
+            <div class="founder-image">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==" alt="Caroline Given, Founder of PMS GPS" id="founder-image">
+            </div>
+            <div class="founder-story">
+                <h2>Meet Caroline Given</h2>
+                <p>Caroline Given, the visionary founder of PMS GPS, recognized a fundamental disconnect in many relationships. As a confidante to many female friends, she repeatedly heard the same frustration: "They just don't understand what it's like to be a woman."</p>
+                <p>As a licensed therapist with practice in both Florida and New York, Caroline brings her professional understanding of psychology and relationship dynamics to PMS GPS. With a master's degree in clinical social work from the University of Central Florida and training in various therapeutic approaches, she's uniquely positioned to bridge the knowledge gap in relationships.</p>
+                <p>The idea for PMS GPS came to Caroline during a moment of clarity while enjoying steak tartare at The Odeon in New York City. "I was listening to yet another friend describe a fight with her boyfriend that could have been avoided if he'd just understood that she was in the premenstrual phase of her cycle," Caroline recalls. "That's when it hit me—what if we could give men a tool that would help them navigate these waters more effectively?"</p>
+                <p>Bringing together her clinical expertise in mental health and her passion for improving relationships, Caroline assembled a team of developers, doctors, and relationship experts to create an app that would demystify the menstrual cycle for partners, friends, and colleagues who want to be more supportive but don't know how.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="quote container">
+        "I created PMS GPS because I believe better understanding leads to better relationships. When someone understands the biological changes their partner is experiencing, they can respond with empathy instead of confusion."
+    </div>
+    
+    <section class="mission-section">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Empowering Relationships</h3>
+                    <p>We give both women and men the tools they need to build stronger, more understanding relationships by demystifying the hormonal cycle.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Educating Partners</h3>
+                    <p>We translate complex hormonal patterns into practical, actionable advice that helps partners understand what's happening and how to respond.</p>
+                </div>
+                <div class="mission-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Improving Communication</h3>
+                    <p>By providing a shared language around hormonal cycles, we help couples talk more openly about needs and expectations throughout the month.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="partners-section">
+        <div class="container">
+            <h2>Our Partners</h2>
+            <div class="partner-feature">
+                <p>PMS GPS was developed in partnership with <a href="https://avenued.co" target="_blank">Avenued</a>, a venture studio based in NYC.</p>
+                <div class="partner-logo">
+                    <a href="https://avenued.co" target="_blank">
+                        <img src="https://cdn.prod.website-files.com/61c1d2fd9f69f8daacc8cd06/61e5d7172064c4d2a1c24c8b_aved-logo.svg" alt="Avenued Logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="about-footer">
+        <div class="container">
+            <p>&copy; 2023 PMS GPS. All rights reserved.</p>
+            <p>Questions? <a href="#">Contact Us</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('sign-in-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'index.html#signin';
+        });
+        
+        // Set Caroline's image from the provided URL
+        const founderImg = document.getElementById('founder-image');
+        founderImg.src = "https://images.squarespace-cdn.com/content/v1/5bd9f1fc0dbda35150cadefb/1576797850227-WCMD8XGN3F38QYJEEKIB/unnamed.jpg?format=2500w";
+    </script>
+</body>
+</html> 

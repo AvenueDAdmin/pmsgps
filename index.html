@@ -28,6 +28,8 @@
         body {
             max-width: 100%;
             position: relative;
+            line-height: 1.6;
+            color: #333;
         }
         
         .welcome-page {
@@ -92,26 +94,41 @@
             color: white;
         }
         
+        .about-link {
+            color: #e9556d;
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 20px;
+            padding: 0.6rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .about-link:hover {
+            color: #d4184c;
+            transform: translateY(-2px);
+        }
+        
         /* Hero section fix */
         .hero-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 2rem;
+            padding: 3rem 2rem;
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: 80vh;
+            min-height: 70vh;
             box-sizing: border-box;
         }
 
         .hero-text {
             flex: 1;
-            padding-right: 2rem;
+            padding-right: 3rem;
+            max-width: 600px;
         }
 
         .hero-text h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 1.5rem;
             color: #e9556d;
             line-height: 1.2;
@@ -119,9 +136,10 @@
 
         .tagline {
             font-size: 1.25rem;
-            margin-bottom: 2rem;
-            color: #666;
+            margin-bottom: 2.5rem;
+            color: #555;
             line-height: 1.6;
+            max-width: 90%;
         }
 
         .try-now-btn {
@@ -163,6 +181,9 @@
             max-width: 300px;
             box-sizing: border-box;
             margin: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .phone-frame::before {
@@ -200,33 +221,195 @@
             position: relative;
             width: 100%;
             height: 550px;
+            display: flex;
+            flex-direction: column;
         }
         
-        .phone-screen svg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* New detailed phone mockup */
+        .phone-mockup {
+            background: #222;
+            border-radius: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            position: relative;
+            width: 280px;
+            box-sizing: border-box;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+        
+        .phone-mockup-screen {
+            background-color: #fff5f7;
+            border-radius: 30px;
+            overflow: hidden;
             width: 100%;
-            height: 100%;
+            height: 520px;
+            position: relative;
+        }
+        
+        .phone-header {
+            background-color: #e9556d;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .profile-icon {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            left: 15px;
+        }
+        
+        .app-title {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .partner-card {
+            background-color: white;
+            border-radius: 10px;
+            margin: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .partner-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .partner-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .partner-icon {
+            width: 45px;
+            height: 45px;
+            background-color: #e9556d;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .partner-name {
+            font-size: 20px;
+            color: #333;
+            font-weight: normal;
+        }
+        
+        .partner-info {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+            font-weight: normal;
+        }
+        
+        .calendar-button {
+            background-color: #f9f9f9;
+            color: #e9556d;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .recommendation-item {
+            background: #f9f9f9; 
+            padding: 12px 15px; 
+            margin: 15px 0; 
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        
+        .recommendation-item p {
+            margin: 0;
+        }
+        
+        .timer-circle {
+            width: 170px; 
+            height: 170px; 
+            background-color: #e9556d; 
+            border-radius: 50%; 
+            position: relative; 
+            margin-bottom: 40px;
+        }
+        
+        .timer-hand {
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 80%; 
+            height: 5px; 
+            background: white;
+        }
+        
+        .timer-dot {
+            position: absolute; 
+            width: 15px; 
+            height: 15px; 
+            background: white; 
+            border-radius: 50%; 
+            top: -5px; 
+            right: 0;
+        }
+        
+        .progress-bar {
+            width: 80%; 
+            height: 12px; 
+            background: #f2f2f2; 
+            border-radius: 6px; 
+            position: relative; 
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            width: 50%; 
+            height: 100%; 
+            background: #64c8c8; 
+            border-radius: 6px;
+        }
+        
+        .home-button {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
         }
         
         /* Feature card styling */
         .features-section {
-            padding: 4rem 0;
+            padding: 6rem 0 4rem;
             background-color: #fff;
             text-align: center;
         }
 
         .features-section h2 {
             font-size: 2.5rem;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             color: #e9556d;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
@@ -235,7 +418,7 @@
         .feature-card {
             background-color: #fff;
             border-radius: 10px;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
@@ -252,7 +435,7 @@
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-bottom: 1rem;
             color: #333;
         }
@@ -260,16 +443,83 @@
         .feature-card p {
             color: #666;
             line-height: 1.6;
+            font-size: 1.05rem;
         }
 
         /* Screenshots carousel */
+        .screenshots-section {
+            padding: 6rem 0;
+            background-color: #fff5f7;
+            text-align: center;
+        }
+        
+        .screenshots-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+            color: #e9556d;
+        }
+
         .screenshots-carousel {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 3rem;
             margin: 3rem auto;
             max-width: 1200px;
+        }
+        
+        /* Signup section */
+        .signup-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #e9556d, #ff8c94);
+            text-align: center;
+            color: white;
+        }
+        
+        .signup-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .signup-section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .signup-section p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .signup-btn {
+            background-color: white;
+            color: #e9556d;
+            border: none;
+            border-radius: 30px;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .signup-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Footer */
+        .welcome-footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 4rem 2rem 1.5rem;
         }
         
         /* Responsive styles */
@@ -278,20 +528,31 @@
                 flex-direction: column;
                 text-align: center;
                 min-height: auto;
-                padding: 3rem 1.5rem;
+                padding: 4rem 1.5rem;
             }
             
             .hero-text {
                 padding-right: 0;
-                margin-bottom: 2rem;
+                margin-bottom: 3rem;
+                max-width: 100%;
+            }
+            
+            .tagline {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .try-now-btn {
                 margin: 0 auto;
             }
             
-            .phone-frame {
+            .phone-mockup {
                 margin: 20px auto;
+            }
+            
+            .features-grid {
+                gap: 2rem;
             }
         }
         
@@ -304,6 +565,10 @@
                 font-size: 2.5rem;
             }
             
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
             .features-grid {
                 grid-template-columns: 1fr;
                 max-width: 500px;
@@ -314,13 +579,27 @@
                 align-items: center;
             }
             
-            .phone-frame {
+            .phone-mockup {
                 transform: none !important;
-                margin: 15px auto;
+                margin: 30px auto;
             }
             
             .hero-section {
-                padding: 2rem 1rem;
+                padding: 3rem 1rem;
+            }
+            
+            .features-section, 
+            .screenshots-section {
+                padding: 4rem 0;
+            }
+            
+            .signup-section h2 {
+                font-size: 2.2rem;
+            }
+            
+            .signup-section p {
+                font-size: 1.1rem;
+                max-width: 100%;
             }
         }
         
@@ -337,29 +616,17 @@
                 font-size: 1rem;
             }
             
-            .phone-frame {
+            .phone-mockup {
                 width: 85%;
                 max-width: 260px;
-                padding: 10px;
+                padding: 8px;
                 border-radius: 30px;
                 margin: 10px auto 30px;
             }
             
-            .phone-screen {
+            .phone-mockup-screen {
                 border-radius: 25px;
                 height: 450px;
-            }
-            
-            .phone-frame::before {
-                width: 50px;
-                height: 8px;
-                top: 20px;
-            }
-            
-            .phone-frame::after {
-                width: 35px;
-                height: 35px;
-                bottom: 12px;
             }
             
             .feature-card {
@@ -379,177 +646,163 @@
 </head>
 <body class="welcome-page">
     <header class="welcome-header">
-            <div class="logo">
-                <i class="fas fa-location-arrow"></i>
-                <h1>PMS GPS</h1>
-            </div>
+        <div class="logo">
+            <i class="fas fa-location-arrow"></i>
+            <h1>PMS GPS</h1>
+        </div>
         <nav class="welcome-nav">
+            <a href="about.html" class="about-link">About</a>
             <button id="sign-in-btn" class="sign-in-btn">Sign In</button>
-            </nav>
-        </header>
+        </nav>
+    </header>
 
     <main class="welcome-main">
         <section class="hero-section">
             <div class="hero-text">
                 <h1>Men Who Know, Win.</h1>
-                <p class="tagline">Ever wonder why some guys effortlessly navigate dating, hookups, and relationships, while others stumble around cluelessly? Science says: women's cycles dramatically influence attraction, mood, and desire. If you're not using PMS GPS, you're playing blindfolded—and losing.</p>
+                <p class="tagline">Navigate relationships with precision. Women's cycles influence attraction, mood, and desire—stop playing blindfolded.</p>
                 <button id="try-now-btn" class="try-now-btn">
-                    <span>Stop Being Clueless. Get PMS GPS. 🚀</span>
+                    <span>Get PMS GPS 🚀</span>
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
             <div class="hero-image">
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Background -->
-                            <rect width="280" height="560" fill="#fff5f7"/>
-                            
-                            <!-- Header -->
-                            <rect x="0" y="0" width="280" height="60" fill="#e9556d"/>
-                            <text x="85" y="38" font-family="Arial" font-size="22" font-weight="bold" fill="white">PMS GPS</text>
-                            <circle cx="35" cy="30" r="15" fill="white"/>
-                            
-                            <!-- First Card -->
-                            <rect x="15" y="80" width="250" height="120" rx="10" fill="white" stroke="#eee" stroke-width="1"/>
-                            <text x="30" y="110" font-family="Arial" font-size="18" font-weight="bold" fill="#e9556d">Emily</text>
-                            <text x="190" y="105" font-family="Arial" font-size="12" fill="#666">Partner</text>
-                            <rect x="30" y="125" width="220" height="10" rx="5" fill="#e9556d"/>
-                            <text x="30" y="155" font-family="Arial" font-size="14" fill="#333">Current Phase: Period</text>
-                            <text x="30" y="180" font-family="Arial" font-size="14" fill="#333">Recommendation:</text>
-                            <text x="30" y="200" font-family="Arial" font-size="14" fill="#333">Netflix + comfort food</text>
-                            
-                            <!-- Second Card -->
-                            <rect x="15" y="220" width="250" height="120" rx="10" fill="white" stroke="#eee" stroke-width="1"/>
-                            <text x="30" y="250" font-family="Arial" font-size="18" font-weight="bold" fill="#64c8c8">Sarah</text>
-                            <text x="190" y="245" font-family="Arial" font-size="12" fill="#666">F*ckBuddy/Lover</text>
-                            <rect x="30" y="265" width="220" height="10" rx="5" fill="#64c8c8"/>
-                            <text x="30" y="295" font-family="Arial" font-size="14" fill="#333">Current Phase: Ovulation</text>
-                            <text x="30" y="320" font-family="Arial" font-size="14" fill="#333">Recommendation:</text>
-                            <text x="30" y="340" font-family="Arial" font-size="14" fill="#333">Late night drinks & dancing</text>
-                        </svg>
-                    </div>
+                <div class="phone-mockup">
+                    <div class="phone-mockup-screen">
+                        <div class="phone-header">
+                            <div class="profile-icon"></div>
+                            <div class="app-title">PMS GPS</div>
+                        </div>
+                        
+                        <div class="partner-card">
+                            <h2>Partner Details</h2>
+                            <div class="partner-header">
+                                <div class="partner-icon"></div>
+                                <div class="partner-name">Melissa</div>
+                            </div>
+                            <div class="partner-info">Current Phase: Fertile</div>
+                            <div class="partner-info">Next Period: Oct 15</div>
+                            <div class="partner-info">Cycle Length: 28 days</div>
+                            <div class="calendar-button">Calendar View</div>
+                        </div>
+                        
+                        <div class="home-button"></div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
         <section class="features-section">
             <h2>Why Smart Men Use PMS GPS</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <i class="fas fa-bullseye"></i>
-                    <h3>Peak Chemistry, Perfect Timing</h3>
-                    <p>Research shows women's interest in intimacy, flirting, and adventure peaks around ovulation. Track her cycle, unlock better hookups, hotter dates, and fewer mixed signals.</p>
-                        </div>
+                    <h3>Perfect Timing</h3>
+                    <p>Track her cycle, unlock better chemistry, and fewer mixed signals during her peak days.</p>
+                </div>
                 <div class="feature-card">
                     <i class="fas fa-brain"></i>
-                    <h3>Know When to Chill</h3>
-                    <p>Sensitivity and mood swings can increase during PMS. Avoid unnecessary arguments and drama—know exactly when to give her space or show extra support.</p>
-                        </div>
+                    <h3>Avoid Drama</h3>
+                    <p>Know exactly when to give her space or show extra support based on her hormonal phase.</p>
+                </div>
                 <div class="feature-card">
                     <i class="fas fa-bolt"></i>
-                    <h3>Instantly Improve Your Game</h3>
-                    <p>Studies confirm men aware of their partner's cycles have stronger, more passionate connections. Knowing the cycle is your secret weapon—use it.</p>
-                        </div>
+                    <h3>Boost Your Connection</h3>
+                    <p>Men aware of their partner's cycles build stronger, more passionate relationships.</p>
+                </div>
                 <div class="feature-card">
                     <i class="fas fa-shield-alt"></i>
-                    <h3>Bulletproof Privacy</h3>
-                    <p>Secure login protection and discreet notifications ensure your strategic advantage remains your secret.</p>
+                    <h3>Total Privacy</h3>
+                    <p>Secure login and discreet notifications keep your strategic advantage private.</p>
                 </div>
             </div>
         </section>
 
         <section class="screenshots-section">
-            <h2>🔥 PMS GPS Features</h2>
+            <h2>PMS GPS Features</h2>
             <div class="screenshots-carousel">
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Background -->
-                            <rect width="280" height="560" fill="#fff5f7"/>
-                            
-                            <!-- Header -->
-                            <rect x="0" y="0" width="280" height="60" fill="#e9556d"/>
-                            <text x="85" y="38" font-family="Arial" font-size="22" font-weight="bold" fill="white">PMS GPS</text>
-                            <circle cx="35" cy="30" r="15" fill="white"/>
-                            
-                            <!-- Partner Details -->
-                            <rect x="15" y="80" width="250" height="220" rx="10" fill="white" stroke="#eee" stroke-width="1"/>
-                            <text x="30" y="110" font-family="Arial" font-size="20" font-weight="bold" fill="#333">Partner Details</text>
-                            <circle cx="40" cy="145" r="20" fill="#e9556d"/>
-                            <text x="75" y="150" font-family="Arial" font-size="18" fill="#333">Melissa</text>
-                            <text x="30" y="185" font-family="Arial" font-size="16" fill="#333">Current Phase: Fertile</text>
-                            <text x="30" y="215" font-family="Arial" font-size="16" fill="#333">Next Period: Oct 15</text>
-                            <text x="30" y="245" font-family="Arial" font-size="16" fill="#333">Cycle Length: 28 days</text>
-                            <rect x="30" y="265" width="220" height="20" rx="5" fill="#f9f9f9"/>
-                            <text x="50" y="280" font-family="Arial" font-size="12" fill="#e9556d">Calendar View</text>
-                        </svg>
+                <div class="phone-mockup">
+                    <div class="phone-mockup-screen">
+                        <div class="phone-header">
+                            <div class="profile-icon"></div>
+                            <div class="app-title">PMS GPS</div>
+                        </div>
+                        
+                        <div class="partner-card">
+                            <h2>Partner Details</h2>
+                            <div class="partner-header">
+                                <div class="partner-icon"></div>
+                                <div class="partner-name">Melissa</div>
+                            </div>
+                            <div class="partner-info">Current Phase: Fertile</div>
+                            <div class="partner-info">Next Period: Oct 15</div>
+                            <div class="partner-info">Cycle Length: 28 days</div>
+                            <div class="calendar-button">Calendar View</div>
+                        </div>
+                        
+                        <div class="home-button"></div>
                     </div>
                 </div>
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Background -->
-                            <rect width="280" height="560" fill="#fff5f7"/>
-                            
-                            <!-- Header -->
-                            <rect x="0" y="0" width="280" height="60" fill="#e9556d"/>
-                            <text x="85" y="38" font-family="Arial" font-size="22" font-weight="bold" fill="white">PMS GPS</text>
-                            <circle cx="35" cy="30" r="15" fill="white"/>
-                            
-                            <!-- Recommendations -->
-                            <rect x="15" y="80" width="250" height="280" rx="10" fill="white" stroke="#eee" stroke-width="1"/>
-                            <text x="30" y="110" font-family="Arial" font-size="20" font-weight="bold" fill="#333">Recommendations</text>
-                            
-                            <rect x="30" y="130" width="220" height="50" rx="8" fill="#f9f9f9"/>
-                            <text x="40" y="160" font-family="Arial" font-size="16" fill="#333">🔥 Try dancing or an</text>
-                            <text x="40" y="180" font-family="Arial" font-size="16" fill="#333">adventure activity</text>
-                            
-                            <rect x="30" y="200" width="220" height="50" rx="8" fill="#f9f9f9"/>
-                            <text x="40" y="230" font-family="Arial" font-size="16" fill="#333">🎁 Gift idea: Perfume</text>
-                            <text x="40" y="250" font-family="Arial" font-size="16" fill="#333">or jewelry</text>
-                            
-                            <rect x="30" y="270" width="220" height="50" rx="8" fill="#f9f9f9"/>
-                            <text x="40" y="300" font-family="Arial" font-size="16" fill="#333">💬 Be spontaneous and</text>
-                            <text x="40" y="320" font-family="Arial" font-size="16" fill="#333">romantic</text>
-                        </svg>
+                
+                <div class="phone-mockup">
+                    <div class="phone-mockup-screen">
+                        <div class="phone-header">
+                            <div class="profile-icon"></div>
+                            <div class="app-title">PMS GPS</div>
+                        </div>
+                        
+                        <div class="partner-card">
+                            <h2>Recommendations</h2>
+                            <div class="recommendation-item">
+                                <p>🔥 Try dancing or an adventure activity</p>
+                            </div>
+                            <div class="recommendation-item">
+                                <p>🎁 Gift idea: Perfume or jewelry</p>
+                            </div>
+                            <div class="recommendation-item">
+                                <p>💬 Be spontaneous and romantic</p>
                             </div>
                         </div>
-                <div class="phone-frame">
-                    <div class="phone-screen">
-                        <svg width="100%" height="100%" viewBox="0 0 280 560" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Background -->
-                            <rect width="280" height="560" fill="#fff5f7"/>
-                            
-                            <!-- Header -->
-                            <rect x="0" y="0" width="280" height="60" fill="#e9556d"/>
-                            <text x="85" y="38" font-family="Arial" font-size="22" font-weight="bold" fill="white">PMS GPS</text>
-                            <circle cx="35" cy="30" r="15" fill="white"/>
-                            
-                            <!-- Timer -->
-                            <rect x="35" y="100" width="210" height="210" rx="105" fill="white" stroke="#eee" stroke-width="1"/>
-                            <circle cx="140" cy="205" r="85" fill="#e9556d"/>
-                            <path d="M140,145 L140,205 L190,240" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
-                            <circle cx="140" cy="205" r="8" fill="white"/>
-                            
-                            <text x="95" y="340" font-family="Arial" font-size="28" font-weight="bold" fill="#333">15 days</text>
-                            <text x="65" y="370" font-family="Arial" font-size="16" fill="#666">until next period</text>
-                            
-                            <rect x="35" y="400" width="210" height="16" rx="8" fill="#f2f2f2"/>
-                            <rect x="35" y="400" width="120" height="16" rx="8" fill="#64c8c8"/>
-                            <text x="55" y="440" font-family="Arial" font-size="14" fill="#666">Fertile Phase: 5 days from now</text>
-                        </svg>
+                        
+                        <div class="home-button"></div>
+                    </div>
+                </div>
+                
+                <div class="phone-mockup">
+                    <div class="phone-mockup-screen">
+                        <div class="phone-header">
+                            <div class="profile-icon"></div>
+                            <div class="app-title">PMS GPS</div>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; align-items: center; padding-top: 30px;">
+                            <div class="timer-circle">
+                                <div class="timer-hand">
+                                    <div class="timer-dot"></div>
                                 </div>
                             </div>
+                            
+                            <h2 style="font-size: 28px; margin-bottom: 10px;">15 days</h2>
+                            <p style="color: #666; margin-bottom: 30px;">until next period</p>
+                            
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <p style="color: #666; font-size: 14px;">Fertile Phase: 5 days from now</p>
                         </div>
+                        
+                        <div class="home-button"></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="signup-section">
             <div class="signup-content">
-                <h2>⚠️ Real Talk: Don't Be the Last to Know</h2>
-                <p>Every guy who understands her cycle has an unfair advantage. Do you really want to be the clueless one?</p>
-                <button id="signup-btn" class="signup-btn">Get PMS GPS and Win 🏆</button>
-                                </div>
+                <h2>Don't Be the Last to Know</h2>
+                <p>Give yourself the unfair advantage in your relationships</p>
+                <button id="signup-btn" class="signup-btn">Get PMS GPS Now 🏆</button>
+            </div>
         </section>
     </main>
 
@@ -558,21 +811,21 @@
             <div class="footer-logo">
                 <i class="fas fa-location-arrow"></i>
                 <span>PMS GPS</span>
-                                </div>
+            </div>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
                 <a href="#">Contact Us</a>
-                                </div>
+            </div>
             <div class="footer-social">
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-facebook"></i></a>
-                                </div>
-                            </div>
+            </div>
+        </div>
         <div class="footer-copyright">
             <p>&copy; 2023 PMS GPS. For entertainment purposes only. Don't be a creep about it.</p>
-                        </div>
+        </div>
     </footer>
 
     <!-- Signup Modal -->
@@ -584,23 +837,23 @@
                 <div class="form-group">
                     <label for="signup-email">Email</label>
                     <input type="email" id="signup-email" required>
-                            </div>
+                </div>
                 <div class="form-group">
                     <label for="setup-password">Password (min 6 characters)</label>
                     <input type="password" id="setup-password" minlength="6" required>
-                        </div>
+                </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password</label>
                     <input type="password" id="confirm-password" minlength="6" required>
-                                </div>
+                </div>
                 <button type="submit" class="auth-submit-btn">Create Account</button>
                 <p class="modal-footer-text">
                     Already have an account? <a href="#" id="switch-to-signin">Sign In</a>
                 </p>
             </form>
-                                </div>
-                        </div>
-                        
+        </div>
+    </div>
+    
     <!-- Signin Modal -->
     <div id="signin-modal" class="modal">
         <div class="auth-container">
