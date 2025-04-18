@@ -102,6 +102,10 @@
             height: auto;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            object-fit: cover;
         }
         
         .founder-story {
@@ -258,6 +262,9 @@
             
             .founder-image {
                 margin-bottom: 30px;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .about-hero h1 {
@@ -276,6 +283,24 @@
             
             .mission-section h2 {
                 margin-bottom: 30px;
+            }
+            
+            .partner-feature {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .founder-image {
+                max-width: 90%;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .partner-logo {
+                max-width: 200px;
             }
         }
     </style>

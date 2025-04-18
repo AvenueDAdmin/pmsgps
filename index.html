@@ -234,8 +234,14 @@
             position: relative;
             width: 280px;
             box-sizing: border-box;
-            margin: 20px auto;
+            margin: 20px;
             overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .phone-mockup:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
         .phone-mockup-screen {
@@ -330,10 +336,18 @@
             margin: 15px 0; 
             border-radius: 8px;
             font-size: 15px;
+            text-align: left;
         }
         
         .recommendation-item p {
             margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .recommendation-item .emoji {
+            margin-right: 8px;
+            font-size: 18px;
         }
         
         .timer-circle {
@@ -342,43 +356,70 @@
             background-color: #e9556d; 
             border-radius: 50%; 
             position: relative; 
-            margin-bottom: 40px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .timer-hand {
             position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 80%; 
-            height: 5px; 
+            width: 75px;
+            height: 2px; 
             background: white;
+            transform-origin: left center;
+            left: 50%;
+            transform: rotate(45deg);
         }
         
         .timer-dot {
             position: absolute; 
-            width: 15px; 
-            height: 15px; 
+            width: 12px; 
+            height: 12px; 
             background: white; 
             border-radius: 50%; 
-            top: -5px; 
-            right: 0;
+            right: -2px;
+            top: -5px;
+        }
+        
+        .cycle-countdown {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .cycle-countdown h2 {
+            font-size: 32px;
+            margin: 0 0 5px;
+            color: #e9556d;
+        }
+        
+        .cycle-countdown p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
         }
         
         .progress-bar {
             width: 80%; 
-            height: 12px; 
+            height: 10px; 
             background: #f2f2f2; 
-            border-radius: 6px; 
+            border-radius: 5px; 
             position: relative; 
-            margin-bottom: 15px;
+            margin: 0 auto 15px;
         }
         
         .progress-fill {
-            width: 50%; 
+            width: 30%; 
             height: 100%; 
             background: #64c8c8; 
-            border-radius: 6px;
+            border-radius: 5px;
+        }
+        
+        .phase-info {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
         }
         
         .home-button {
@@ -398,6 +439,8 @@
             padding: 6rem 0 4rem;
             background-color: #fff;
             text-align: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .features-section h2 {
@@ -413,6 +456,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+            box-sizing: border-box;
         }
 
         .feature-card {
@@ -421,11 +465,16 @@
             padding: 2.5rem 2rem;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .feature-card i {
@@ -435,7 +484,7 @@
         }
 
         .feature-card h3 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             color: #333;
         }
@@ -443,29 +492,112 @@
         .feature-card p {
             color: #666;
             line-height: 1.6;
-            font-size: 1.05rem;
+            margin: 0;
         }
 
         /* Screenshots carousel */
         .screenshots-section {
-            padding: 6rem 0;
-            background-color: #fff5f7;
+            padding: 4rem 0;
+            background-color: var(--light-color, #fff5f7);
             text-align: center;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
         
+        .screenshots-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(233,85,109,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .screenshots-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(233,85,109,0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
         .screenshots-section h2 {
             font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: #e9556d;
+            margin-bottom: 3rem;
+            color: var(--primary-color, #e9556d);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .screenshots-section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #e9556d, #ff8c94);
+            margin: 15px auto 0;
+            border-radius: 3px;
         }
 
         .screenshots-carousel {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 3rem;
-            margin: 3rem auto;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
             max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Subtle animation for phone mockups */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .phone-mockup {
+            background: #222;
+            border-radius: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            position: relative;
+            width: 280px;
+            box-sizing: border-box;
+            margin: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .phone-mockup:nth-child(1) {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .phone-mockup:nth-child(2) {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        .phone-mockup:nth-child(3) {
+            animation: float 6s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        .phone-mockup:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation-play-state: paused;
         }
         
         /* Signup section */
@@ -547,12 +679,30 @@
                 margin: 0 auto;
             }
             
+            .screenshots-carousel {
+                justify-content: center;
+                gap: 1.5rem;
+                padding: 1rem;
+                flex-wrap: wrap;
+            }
+            
             .phone-mockup {
-                margin: 20px auto;
+                margin: 15px;
+                width: 260px;
             }
             
             .features-grid {
                 gap: 2rem;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                padding: 0 1.5rem;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .feature-card i {
+                font-size: 2.5rem;
             }
         }
         
@@ -569,19 +719,33 @@
                 font-size: 1.1rem;
             }
             
-            .features-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
+            .screenshots-carousel {
+                gap: 3rem;
+                justify-content: center;
+                flex-wrap: wrap;
             }
             
-            .screenshots-carousel {
-                flex-direction: column;
-                align-items: center;
+            .screenshots-section::before,
+            .screenshots-section::after {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .phone-mockup:nth-child(1),
+            .phone-mockup:nth-child(2),
+            .phone-mockup:nth-child(3) {
+                animation: none;
             }
             
             .phone-mockup {
                 transform: none !important;
-                margin: 30px auto;
+                margin: 15px;
+                width: 240px;
+            }
+            
+            .phone-mockup:hover {
+                transform: none !important;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             }
             
             .hero-section {
@@ -601,6 +765,21 @@
                 font-size: 1.1rem;
                 max-width: 100%;
             }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                max-width: 700px;
+                margin: 0 auto;
+                gap: 1.5rem;
+            }
+            
+            .features-section {
+                padding: 4rem 1rem;
+            }
+            
+            .features-section h2 {
+                margin-bottom: 2.5rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -616,12 +795,28 @@
                 font-size: 1rem;
             }
             
+            .screenshots-carousel {
+                flex-direction: column;
+                align-items: center;
+                gap: 2.5rem;
+            }
+            
+            .screenshots-section::before,
+            .screenshots-section::after {
+                display: none;
+            }
+            
+            .screenshots-section h2::after {
+                width: 60px;
+                margin-top: 10px;
+            }
+            
             .phone-mockup {
                 width: 85%;
-                max-width: 260px;
+                max-width: 240px;
                 padding: 8px;
                 border-radius: 30px;
-                margin: 10px auto 30px;
+                margin: 5px auto 25px;
             }
             
             .phone-mockup-screen {
@@ -630,16 +825,27 @@
             }
             
             .feature-card {
-                padding: 1.5rem;
+                padding: 1.75rem 1.25rem;
             }
             
             .feature-card i {
-                font-size: 2.5rem;
+                font-size: 2.25rem;
                 margin-bottom: 1rem;
             }
             
+            .features-section {
+                padding: 3rem 1rem;
+            }
+            
             .features-section h2 {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                margin-bottom: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                gap: 1.5rem;
             }
         }
     </style>
@@ -754,13 +960,13 @@
                         <div class="partner-card">
                             <h2>Recommendations</h2>
                             <div class="recommendation-item">
-                                <p>🔥 Try dancing or an adventure activity</p>
+                                <p><span class="emoji">🔥</span> Try dancing or an adventure activity</p>
                             </div>
                             <div class="recommendation-item">
-                                <p>🎁 Gift idea: Perfume or jewelry</p>
+                                <p><span class="emoji">🎁</span> Gift idea: Perfume or jewelry</p>
                             </div>
                             <div class="recommendation-item">
-                                <p>💬 Be spontaneous and romantic</p>
+                                <p><span class="emoji">💬</span> Be spontaneous and romantic</p>
                             </div>
                         </div>
                         
@@ -782,13 +988,15 @@
                                 </div>
                             </div>
                             
-                            <h2 style="font-size: 28px; margin-bottom: 10px;">15 days</h2>
-                            <p style="color: #666; margin-bottom: 30px;">until next period</p>
+                            <div class="cycle-countdown">
+                                <h2>15 days</h2>
+                                <p>until next period</p>
+                            </div>
                             
                             <div class="progress-bar">
                                 <div class="progress-fill"></div>
                             </div>
-                            <p style="color: #666; font-size: 14px;">Fertile Phase: 5 days from now</p>
+                            <p class="phase-info">Fertile Phase: 5 days from now</p>
                         </div>
                         
                         <div class="home-button"></div>
